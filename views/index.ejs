@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rappers Names</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+    <h1>Rapper Archive 222</h1>
+    <form action="/rapper" method="post">
+        <label for="stageName">Stage Name</label>
+        <input id="stageName" name="stageName" type="text" placeholder="Stage Name">
+        <label for="birthName">birth Name</label>
+        <input type="text" name="birthName" id="birthName" placeholder="Birth Name">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>All Rappers</h2>
+<ul>
+    <% rappers.forEach(e => { %>
+        <li>
+            <strong><%= e.stageName %></strong>
+
+            <span>(<%= e.birthName %>)</span>
+
+              <!-- Thumbs up icon -->
+              <i class="fa fa-thumbs-up" data-id="<%= e._id %>" aria-hidden="true"></i>
+                
+              <!-- Trash icon -->
+              <i class="fa fa-trash" data-id="<%= e._id %>" aria-hidden="true"></i>
+        </li>
+    <% }); %>
+</ul>
+
+
+
+    <script src="main.js"></script>
+</body>
+</html>
