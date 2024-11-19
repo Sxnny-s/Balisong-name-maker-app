@@ -3,8 +3,8 @@ const trash = document.getElementsByClassName('fa-trash')
 
 
 
-function like(rapperId) {
-    fetch(`/increment-like/${rapperId}`, {
+function like(balisongId) {
+    fetch(`/increment-like/${balisongId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -13,6 +13,7 @@ function like(rapperId) {
     .then(res => {
         if (res.ok) {
             console.log('Like incremented in the database');
+            window.location.reload();
         } else {
             console.error('Failed to increment like');
         }
@@ -22,8 +23,8 @@ function like(rapperId) {
     });
 }
 
-function del(rapperId) {
-    fetch(`/delete-rapper/${rapperId}`, {
+function del(balisongId) {
+    fetch(`/delete-balisong/${balisongId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -31,27 +32,27 @@ function del(rapperId) {
     })
     .then(res => {
         if (res.ok) {
-            console.log('rapper deleted')
-            window.location.href = '/';
+            console.log('balisong deleted')
+            window.location.reload();
         }
     })
     .catch(err => {
-        console.error('Error Removing rapper')
+        console.error('Error Removing balisong')
     })
 
 }
 
 Array.from(thumbUp).forEach(e => {
     e.addEventListener('click', function () {
-        const rapperId = e.getAttribute('data-id');
-        like(rapperId)
+        const balisongId = e.getAttribute('data-id');
+        like(balisongId)
     })
 
 })
 
 Array.from(trash).forEach(e => {
     e.addEventListener('click', function () {
-        const rapperId = e.getAttribute('data-id')
-        del(rapperId)
+        const balisongId = e.getAttribute('data-id')
+        del(balisongId)
     })
 })

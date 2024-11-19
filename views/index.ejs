@@ -3,32 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rappers Names</title>
+    <title>balisongs Names</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 <body>
-    <h1>Rapper Archive 222</h1>
-    <form action="/rapper" method="post">
-        <label for="stageName">Stage Name</label>
-        <input id="stageName" name="stageName" type="text" placeholder="Stage Name">
-        <label for="birthName">birth Name</label>
-        <input type="text" name="birthName" id="birthName" placeholder="Birth Name">
+    <h1>Balisong model/maker</h1>
+    <form action="/balisong" method="post">
+        <label for="model">Model Name</label>
+        <input id="model" name="model" type="text" placeholder="balisong model">
+        <label for="company">company Name</label>
+        <input type="text" name="company" id="company" placeholder="company">
         <button type="submit">Submit</button>
     </form>
 
-    <h2>All Rappers</h2>
+    <h2>All balisongs</h2>
 <ul>
-    <% rappers.forEach(e => { %>
+    <% balisong.forEach(e => { %>
         <li>
-            <strong><%= e.stageName %></strong>
+            <strong><%= e.model %></strong>
 
-            <span>(<%= e.birthName %>)</span>
+            <span>(<%= e.company %>)</span>
 
               <!-- Thumbs up icon -->
               <i class="fa fa-thumbs-up" data-id="<%= e._id %>" aria-hidden="true"></i>
                 
+              <span><%= e.likes %></span>
+
+
               <!-- Trash icon -->
               <i class="fa fa-trash" data-id="<%= e._id %>" aria-hidden="true"></i>
         </li>

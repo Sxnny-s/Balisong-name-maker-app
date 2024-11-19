@@ -7,7 +7,7 @@ const app = express()
 const port = 3001;
 
 const url = 'mongodb+srv://demo:demo@cluster0.qrvad.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
-const dbName = 'rappersDB'
+const dbName = 'balisongsDB'
 app.use(express.static('public'))
 
 let db
@@ -23,7 +23,7 @@ app.use(express.json());
 MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(client => {
     db = client.db(dbName);
-    collection = db.collection('rappers');
+    collection = db.collection('balisong');
     console.log('Connected to database')
 })
 .catch(err => console.error(err));
@@ -39,35 +39,35 @@ app.listen(port, () => {
 app.get('/', (req, res) => {
     collection.find().toArray()
     .then(result => {
-        res.render('index.ejs', {rappers: result});
+        res.render('index.ejs', {balisong: result});
     })
     .catch(err => {
         console.error(err);
-        res.send('Error fetching rappers data')
+        res.send('Error fetching balisong data')
         })
 })
 
-app.post('/rapper', (req, res) => {
-    const stageName = req.body.stageName;
-    const birthName = req.body.birthName
+app.post('/balisong', (req, res) => {
+    const model = req.body.model;
+    const company = req.body.company
 
     
-    collection.insertOne({ stageName, birthName, likes: 0 })
+    collection.insertOne({ model, company, likes: 0 })
         .then(result => {
-            console.log('Rapper added:', result);
+            console.log('balisong added:', result);
             res.redirect('/');  
         })
         .catch(err => {
             console.error(err);
-            res.send('Error inserting rapper');
+            res.send('Error inserting balisong');
         });
 });
 
 app.put('/increment-like/:id', (req, res) => {
-    const rapperId = req.params.id;
+    const balisongId = req.params.id;
 
     collection.updateOne(
-        { _id: new ObjectId(rapperId) },
+        { _id: new ObjectId(balisongId) },
         { $inc: { likes: 1 } }
     )
     .then(result => {
@@ -75,7 +75,7 @@ app.put('/increment-like/:id', (req, res) => {
            
             res.status(200).send('Like incremented');
         } else {
-            res.status(404).send('Rapper not found');
+            res.status(404).send('balisong not found');
         }
     })
     .catch(err => {
@@ -85,14 +85,14 @@ app.put('/increment-like/:id', (req, res) => {
 });
 
 
-app.delete('/delete-rapper/:id', (req, res) => {
-    const rapperId = req.params.id
-    collection.deleteOne({_id: new ObjectId(rapperId)})
+app.delete('/delete-balisong/:id', (req, res) => {
+    const balisongId = req.params.id
+    collection.deleteOne({_id: new ObjectId(balisongId)})
     .then(result => {
            res.redirect('/')
     })
     .catch(err => {
         console.error(err);
-        res.status(500).send('Error deleting rapper');
+        res.status(500).send('Error deleting balisong');
     });
 })
